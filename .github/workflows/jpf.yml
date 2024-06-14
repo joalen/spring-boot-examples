@@ -21,9 +21,13 @@ jobs:
         cache: maven
             
     - name: Build project with JDK 17
-      run: find . -name "pom.xml" -exec sh -c 'grep -q "spring-boot-mail" "{}" || mvn clean install -f "{}"' \;
+      run: |
+        #!/bin/bash
+        
+        modules=$(find . -name "pom.xml" | grep -v "/2.x/" | xargs -n1 dirname | tr '\n' ',' | sed 's/,$//')
+        mvn install -pl $modules -am -DskipTests
 
-    - name: Set up JDK 11 for JPF and project
+    - name: Set up JDK 11 for JPF
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
