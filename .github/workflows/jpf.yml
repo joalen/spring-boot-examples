@@ -32,8 +32,8 @@ jobs:
         for dir in */ ; do
           if [ -f "$dir/pom.xml" ]; then
             mvn -f "$dir/pom.xml" clean install \
-                        -Dmaven.compiler.source=17 \
-                        -Dmaven.compiler.target=17 \
+                        -Dmaven.compiler.source=11 \
+                        -Dmaven.compiler.target=11 \
                         -Djakarta.mail.version=2.0.1 \
                         -Dspring-boot.version=2.1.0.RELEASE \
                         -Djavax.mail-api.version=1.6.2 \
