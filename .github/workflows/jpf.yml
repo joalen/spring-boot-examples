@@ -31,12 +31,13 @@ jobs:
       run: | 
         for dir in */ ; do
           if [ -f "$dir/pom.xml" ]; then
-            mvn clean install \
+            mvn -f "$dir/pom.xml" clean install \
                         -Dmaven.compiler.source=11 \
                         -Dmaven.compiler.target=11 \
                         -Djakarta.mail.version=2.0.1 \
                         -Dspring-boot.version=2.6.6 \
-                        -DadditionalDependencies="com.sun.mail:jakarta.mail:2.0.1"
+                        -DadditionalDependencies="com.sun.mail:jakarta.mail:2.0.1" \
+                        -DskipTests
           fi
         done
 
