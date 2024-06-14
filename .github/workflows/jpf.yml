@@ -24,7 +24,7 @@ jobs:
       run: |
         #!/bin/bash
         
-        modules=$(find . -name "pom.xml" | grep -v "/2.x/" | xargs -n1 dirname | tr '\n' ',' | sed 's/,$//')
+        modules=$(find . -name "pom.xml" | grep -v "2.x" | xargs -n1 dirname | tr '\n' ',' | sed 's/,$//')
         mvn install -pl $modules -am -DskipTests
 
     - name: Set up JDK 11 for JPF
