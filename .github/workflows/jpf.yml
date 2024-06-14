@@ -22,7 +22,7 @@ jobs:
     - name: setup maven 
       run: | 
         sudo apt-get update
-        sudo apt-install maven
+        sudo apt-get install -y maven
     
     - name: Build project with JDK 11
       run: | 
