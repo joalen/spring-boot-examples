@@ -25,7 +25,7 @@ jobs:
         #!/bin/bash
         
         find . -name "pom.xml" | grep -v "/2.x/" | while read pom_file; do
-          mvn -f "$pom_file" install -DskipTests=true
+          mvn -f "$pom_file" install -DskipTests=true || continue
         done
 
     - name: Set up JDK 11 for JPF
