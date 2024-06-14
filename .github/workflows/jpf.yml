@@ -5,32 +5,35 @@ on:
 
 jobs:
   run-jpf:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
         ref: 53c8c8d6d0b957e9d4ae02f99d5993d5e699d522
-  
-    - name: Set up JDK 11 for JPF and project
+    
+    - name: Set up JDK 17 for project 
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
-        java-version: '11'
+        java-version: '17'
+        cache: maven
 
-    - name: setup maven 
-      run: | 
-        sudo apt-get update
-        sudo apt-get install -y maven
-    
-    - name: Build project with JDK 11
+    - name: Build project with JDK 17
       run: | 
         for dir in */ ; do
           if [ -f "$dir/pom.xml" ]; then
               mvn -f "$dir/pom.xml" clean install -DskipTests
           fi
         done
+
+    - name: Set up JDK 11 for JPF and project
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+    
     - name: Clone and build jpf-core
       run: |
         git clone https://github.com/javapathfinder/jpf-core.git /tmp/jpf-core
