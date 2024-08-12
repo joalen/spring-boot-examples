@@ -33,6 +33,21 @@ jobs:
           mvn -f "$pom_file" install -DskipTests=true || continue
         done
 
+    - name: Build project with JDK 17 
+      shell: cmd
+      run: |
+        @echo off
+        setlocal enabledelayedexpansion
+        
+        for /r %%f in (pom.xml) do (
+            echo %%f | findstr /i /v /c:"\2.x\" >nul
+            if !errorlevel! equ 0 (
+                mvn -f "%%f" install -DskipTests=true
+            )
+        )
+        
+        endlocal
+        
     - name: Set up JDK 11 for JPF
       uses: actions/setup-java@v3
       with:
